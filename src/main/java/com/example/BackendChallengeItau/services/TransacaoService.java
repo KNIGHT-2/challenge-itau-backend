@@ -16,9 +16,18 @@ public class TransacaoService {
     public String newTransacao(Transacao transacao) {
         if((transacao.getValor() >= 0.0) && (transacao.getDataHora().isBefore(LocalDateTime.now())) ){
             transacaoRepository.getTransacoes().add(transacao);
-            return "Created";
-        }else{
-            return "Bad request";
+            if (transacaoRepository.getTransacoes().contains(transacao)){
+                System.out.println("Transação criada com sucesso.");
+                return "Created";
+            }
+        }
+        return "Bad request";
+    }
+
+    public void deleteTransacoes() {
+        transacaoRepository.getTransacoes().clear();
+        if(transacaoRepository.getTransacoes().isEmpty()){
+            System.out.println("Transações limpas.");
         }
     }
 
