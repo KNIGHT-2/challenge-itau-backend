@@ -17,7 +17,7 @@ public class TrasacaoController {
     private TransacaoService transacaoService;
 
     @PostMapping(value = "/transacao")
-    ResponseEntity<Transacao> getTransacoes(@RequestBody Transacao transacao) {
+    ResponseEntity<Transacao> newTransacao(@RequestBody Transacao transacao) {
         try {
         String result = transacaoService.newTransacao(transacao);
 
