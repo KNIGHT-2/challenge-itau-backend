@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class TrasacaoController {
+public class TransacaoController {
 
     @Autowired
     private TransacaoService transacaoService;
@@ -21,12 +21,10 @@ public class TrasacaoController {
         try {
         String result = transacaoService.newTransacao(transacao);
 
-            switch (result){
-                case "Bad request":
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-                default:
-                    return ResponseEntity.status(HttpStatus.CREATED).build();
+            if (result.equals("Bad request")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
             }
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         }catch (NullPointerException e){
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
